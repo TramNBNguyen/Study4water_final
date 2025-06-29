@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study4Water - Village Water Crisis</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <div class="header">
+            <h1>🌊 Study4Water: Village Crisis</h1>
+            <p>Help build water infrastructure and save your village!</p>
+        </div>
+
+        <div class="audio-controls">
+            <label>🔊 Volume: 
+                <input type="range" id="volumeControl" class="volume-control" min="0" max="1" step="0.1" value="0.5">
+            </label>
+            <button class="btn btn-secondary" onclick="toggleMute()" id="muteBtn">🔇 Mute</button>
+        </div>
+
+        <div class="game-stats">
+            <div class="stat-card">
+                <div class="stat-value" id="score">0</div>
+                <div class="stat-label">💧 Water Collected</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="coins">50</div>
+                <div class="stat-label">🪙 Coins</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="population">10</div>
+                <div class="stat-label">👥 Population</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="happiness">😊</div>
+                <div class="stat-label">Village Mood</div>
+            </div>
+        </div>
+
+        <div class="difficulty-selector">
+            <h3>Choose Difficulty:</h3>
+            <div class="difficulty-buttons">
+                <button class="difficulty-btn easy active" data-difficulty="easy">Easy (Goal: 50 💧)</button>
+                <button class="difficulty-btn normal" data-difficulty="normal">Normal (Goal: 100 💧)</button>
+                <button class="difficulty-btn hard" data-difficulty="hard">Hard (Goal: 200 💧)</button>
+            </div>
+        </div>
+
+        <div class="timer-setup" id="timerSetup">
+            <h3>Set Game Timer:</h3>
+            <input type="number" id="timerInput" value="5" min="1" max="60" style="padding: 8px; border-radius: 5px; border: 1px solid #ccc; margin: 0 10px;">
+            <span>minutes</span>
+            <button class="btn btn-primary" onclick="startGame()" style="margin-left: 15px;">🚀 Start Game</button>
+        </div>
+
+        <div class="game-area">
+            <div class="timer" id="timer">Time: 60s</div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+
+            <div class="village-map" id="villageMap">
+                <!-- Water sources will be generated here -->
+            </div>
+
+            <div class="buildings-grid" id="buildingsGrid">
+                <div class="building" data-building="well" data-cost="30">
+                    <div>🏗️ Basic Well</div>
+                    <small>Cost: 30 coins</small>
+                </div>
+                <div class="building locked" data-building="pump" data-cost="80">
+                    <div>⚙️ Water Pump</div>
+                    <small>Cost: 80 coins</small>
+                </div>
+                <div class="building locked" data-building="treatment" data-cost="150">
+                    <div>🏭 Treatment Plant</div>
+                    <small>Cost: 150 coins</small>
+                </div>
+            </div>
+
+            <div class="crisis-event" id="crisisEvent">
+                <h3>⚠️ CRISIS ALERT!</h3>
+                <p id="crisisText">A drought has hit your village!</p>
+                <button class="btn btn-primary" onclick="handleCrisis()">Respond to Crisis</button>
+            </div>
+
+            <div class="game-over" id="gameOver">
+                <h2 id="gameOverTitle">🎉 Victory!</h2>
+                <p id="gameOverText">You've successfully provided clean water to your village!</p>
+                <div id="finalStats"></div>
+                <button class="btn btn-primary" onclick="resetGame()">Play Again</button>
+            </div>
+        </div>
+
+        <div class="milestone-alert" id="milestoneAlert">
+            <h3 id="milestoneTitle">🎯 Milestone Reached!</h3>
+            <p id="milestoneMessage">Great progress!</p>
+        </div>
+
+        <div class="controls">
+            <button class="btn btn-primary" onclick="spawnWaterSources()">🔄 New Water Sources</button>
+            <button class="btn btn-secondary" onclick="resetGame()">🔄 Reset Game</button>
+            <button class="btn btn-primary" onclick="autoCollect()">⚡ Quick Collect (10 coins)</button>
+        </div>
+
+        <div class="footer">
+            <h3>💙 Support Real Water Projects</h3>
+            <p>This game is inspired by charity: water's mission to bring clean and safe drinking water to people in developing countries. Every day, millions of people walk hours just to collect water that could make them sick.</p>
+            <div class="charity-links">
+                <a href="https://www.charitywater.org" target="_blank" class="charity-link">Visit charity: water</a>
+                <a href="https://www.charitywater.org/donate/" target="_blank" class="charity-link">Donate Now</a>
+                <a href="https://www.charitywater.org/our-projects/" target="_blank" class="charity-link">View Projects</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
